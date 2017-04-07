@@ -57,7 +57,7 @@ public @Data class Username {
 	}
 	
 	private String getAlternative(String username){
-		RandomString generator = new RandomString(5);
+		RandomString generator = new RandomString(6);
 		return username.concat(generator.nextString());
 	}
 	
