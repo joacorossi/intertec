@@ -29,7 +29,7 @@ public class UsernameServiceImpl implements IUsernameService{
 	@Value("${trycount}")
 	private int TRYCOUNT;
 	
-	@Value("${forbidenWords}")
+	@Value("#{'${forbidenWords}'.split(',')}")
 	private List<String> invalidWords;
 	
 	@Autowired
@@ -41,12 +41,10 @@ public class UsernameServiceImpl implements IUsernameService{
 		Username uname = new Username(username);
 		UsernameAvailable usernameStatus = this.validateUsername(uname);		
 		if(usernameStatus.equals(UsernameAvailable.AVAILABLE)){
-			System.out.println("valid username - saving..");
 			result = new UsernameValidationDto(usernameStatus);		
 			this.getUsernameRepository().save(uname);	
 		}else{
 			result = new UsernameValidationWithOptionsDto(usernameStatus,this.getAlternatives(uname));
-			System.out.println("invalid username - generating alternatives..");
 		}
 		return result;
 		

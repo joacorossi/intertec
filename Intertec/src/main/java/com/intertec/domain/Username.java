@@ -63,10 +63,10 @@ public @Data class Username {
 	
 	private String getFixedName(String name, Collection<String> invalidWords){
 		if(name.length()>1){
-			if(!this.containWords((List<String>)invalidWords)){
-				return name;
+			if(this.containWords((List<String>)invalidWords)){
+				return getFixedName(name.substring(0, name.length()-1),invalidWords);
 			}else{
-				return getFixedName(name.substring(0, name.length()-1),invalidWords);	
+				return name;	
 			}
 		}else{
 			return new String("");
